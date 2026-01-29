@@ -1,7 +1,7 @@
 import {Response, Request} from 'express';
 import {isNilOrEmpty} from 'ramda-adjunct';
 
-export const validateTodoIdFromParams = (req: Request, res: Response): string => {
+export const validateTodoIdFromParams = (req: Request, res: Response): string | string[] => {
   const todoId = req.params.id;
 
   if (isNilOrEmpty(todoId)) {
