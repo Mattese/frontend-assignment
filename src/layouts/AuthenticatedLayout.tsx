@@ -3,17 +3,17 @@ import {ReactNode} from 'react';
 import {Outlet} from 'react-router-dom';
 import {StyledAvatar} from '../components';
 
-interface MainLayoutProps {
+interface AuthenticatedLayoutProps {
   children?: ReactNode;
 }
 
-export function MainLayout({children}: MainLayoutProps) {
+export function AuthenticatedLayout({children}: AuthenticatedLayoutProps) {
   return (
     <Box bg="fill-gray" minHeight="100vh" paddingX="40px" paddingY="40px">
       <Flex justifyContent="space-between" alignItems="center" marginBottom="40px">
         <Box>
           <Flex alignItems="center" gap="12px">
-            <Image src="./src/assets/logo.svg" alt="Logo" height="40px" />
+            <Image src="/logo.svg" alt="Logo" height="40px" />
             <Heading as="h1" fontSize="24px" marginTop="8px" color="text-primary">
               Zentask
             </Heading>

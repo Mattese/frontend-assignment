@@ -1,19 +1,20 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {setupListeners} from '@reduxjs/toolkit/query';
-import {api} from './api';
+import {todoApi} from './api/todoApi';
+import {authApi} from './api/authApi';
+import authReducer from './authSlice';
+
+const APIS_MIDDLEWARE = [todoApi.middleware, authApi.middleware];
 
 export const store = configureStore({
   reducer: {
-    // Add the generated reducer as a specific top-level slice
-    [api.reducerPath]: api.reducer,
+    auth: authReducer,
+    [todoApi.reducerPath]: todoApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
   },
-  // Adding the api middleware enables caching, invalidation, polling,
-  // and other useful features of `rtk-query`.
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(...APIS_MIDDLEWARE),
 });
 
-// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
-// see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
 setupListeners(store.dispatch);
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -1,8 +1,12 @@
 import {Helmet} from 'react-helmet-async';
 import {useTranslation} from 'react-i18next';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import {MainLayout} from './layouts/MainLayout';
-import {TodoList, Welcome} from './pages';
+import {AuthenticatedLayout} from './layouts/AuthenticatedLayout';
+import {Create, Login, TodoList, Welcome} from './pages';
+import {ProtectedRoute, PublicRoute} from './components';
+import {Register} from './pages/Register';
+import {UnauthenticatedLayout} from './layouts/UnauthenticatedLayout';
+import {ROUTES_NESTED} from '@/utils/routes';
 
 function App() {
   const {i18n, t} = useTranslation();
@@ -19,9 +23,29 @@ function App() {
 
       <BrowserRouter>
         <Routes>
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Welcome />} />
-            <Route path="/todos" element={<TodoList />} />
+          {/* Public routes */}
+          <Route
+            element={
+              <PublicRoute>
+                <UnauthenticatedLayout />
+              </PublicRoute>
+            }
+          >
+            <Route path={ROUTES_NESTED.PUBLIC.LOGIN} element={<Login />} />
+            <Route path={ROUTES_NESTED.PUBLIC.REGISTER} element={<Register />} />
+          </Route>
+
+          {/* Protected routes */}
+          <Route
+            element={
+              <ProtectedRoute>
+                <AuthenticatedLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path={ROUTES_NESTED.PROTECTED.HOME} element={<Welcome />} />
+            <Route path={ROUTES_NESTED.PROTECTED.TODOS.LIST} element={<TodoList />} />
+            <Route path={ROUTES_NESTED.PROTECTED.TODOS.CREATE} element={<Create />} />
           </Route>
         </Routes>
       </BrowserRouter>
