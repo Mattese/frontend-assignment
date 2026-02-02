@@ -1,4 +1,6 @@
 import {createSystem, defaultConfig} from '@chakra-ui/react';
+import {size} from 'cypress/types/lodash';
+import {color} from 'framer-motion';
 
 const fontSizes = {
   heading: {
@@ -65,9 +67,84 @@ const theme = createSystem(defaultConfig, {
       button: {
         base: {
           bg: 'unset',
-          backgroundColor: '#0F62FE',
-          color: '#FFFFFF',
+          backgroundColor: 'fill-brand',
+          color: 'fill-white',
           borderRadius: '100px',
+        },
+        variants: {
+          variant: {
+            ghost: {
+              backgroundColor: 'transparent !important',
+              color: 'text-secondary',
+              border: 'none',
+              boxShadow: 'none',
+              _hover: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+              },
+              _active: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+              },
+              _focus: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+                boxShadow: 'none',
+              },
+            },
+          },
+        },
+      },
+      iconButton: {
+        base: {
+          border: 'none',
+          boxShadow: 'none',
+        },
+        variants: {
+          variant: {
+            ghost: {
+              backgroundColor: 'transparent !important',
+              color: 'text-secondary',
+              _hover: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+              },
+              _active: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+              },
+              _focus: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+                boxShadow: 'none',
+              },
+            },
+          },
+        },
+      },
+      checkmark: {
+        base: {
+          borderRadius: '100px',
+          color: 'fill-white',
+          backgroundColor: 'fill-brand',
+          borderColor: 'fill-brand',
+        },
+        variants: {
+          variant: {
+            solid: {
+              backgroundColor: 'transparent',
+              '&:is([data-state=checked], [data-state=indeterminate])': {
+                color: 'fill-white',
+                backgroundColor: 'fill-brand',
+                borderColor: 'fill-brand',
+              },
+            },
+          },
+          size: {
+            sm: {width: '16px', height: '16px'},
+            md: {width: '24px', height: '24px'},
+            lg: {width: '32px', height: '32px'},
+          },
         },
       },
     },
