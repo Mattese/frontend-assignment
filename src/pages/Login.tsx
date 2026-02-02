@@ -1,11 +1,11 @@
-import {Heading, VStack} from '@chakra-ui/react';
+import {Button, Heading, VStack} from '@chakra-ui/react';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useForm} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
-import {TextField, StyledButton} from 'src/components';
+import {TextField} from 'src/components';
 import {PasswordInput} from 'src/components/ui/password-input';
 import {useAuth} from 'src/hooks/useAuth';
-import {ROUTES_NESTED} from 'src/utils/routes';
+import {ROUTES_NESTED} from 'src/constants/routes';
 import * as yup from 'yup';
 
 const label = 'Login';
@@ -20,7 +20,7 @@ const registerSchema = yup.object({
   password: yup.string().required('Password is required'),
 });
 
-export const Login: React.FC = () => {
+export const LoginPage: React.FC = () => {
   const {login} = useAuth();
   const navigate = useNavigate();
   const {
@@ -42,7 +42,6 @@ export const Login: React.FC = () => {
     } catch (err) {
       console.error('Login failed:', err);
     }
-    // }
   };
 
   return (
@@ -70,9 +69,9 @@ export const Login: React.FC = () => {
             errorText={errors.password?.message}
           />
 
-          <StyledButton width={{base: '100%', sm: 'auto'}} type="submit" disabled={isSubmitting}>
+          <Button width={{base: '100%', sm: 'auto'}} type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Logging in...' : label}
-          </StyledButton>
+          </Button>
         </VStack>
       </form>
     </VStack>

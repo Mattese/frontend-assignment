@@ -1,5 +1,5 @@
 export {Welcome} from './Welcome';
-export {Login} from './Login';
-export {Register} from './Register';
+export {LoginPage as Login} from './Login';
+export {RegisterPage as Register} from './Register';
 
 export * from './Todo';

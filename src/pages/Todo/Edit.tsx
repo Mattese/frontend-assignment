@@ -4,7 +4,7 @@ import {PageHeader} from 'src/components';
 import {TodoFormData, TodoForm} from 'src/components/todoForm';
 import {useGetTodoQuery, useUpdateTodoMutation} from 'src/store/api/todoApi';
 import {showSuccessToast} from 'src/utils/errorHandler';
-import {ROUTES_NESTED} from 'src/utils/routes';
+import {ROUTES_NESTED} from 'src/constants/routes';
 
 export const Edit: React.FC = () => {
   const navigate = useNavigate();

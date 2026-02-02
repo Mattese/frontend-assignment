@@ -1,5 +1,4 @@
-import {Box, ButtonGroup, Heading, IconButton, Stack} from '@chakra-ui/react';
-import {StyledButton} from '../button';
+import {Box, Button, ButtonGroup, Heading, IconButton, Stack} from '@chakra-ui/react';
 import {MdArrowBack} from 'react-icons/md';
 import {useNavigate} from 'react-router-dom';
 
@@ -35,20 +34,22 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       <Box>
         <Box
           display="flex"
-          flexDirection="row"
-          justifyContent="space-between"
-          alignItems="center"
+          flexDirection={{base: 'column', sm: 'row'}}
+          justifyContent={{sm: 'space-between'}}
+          alignItems={{base: 'flex-start', sm: 'center'}}
           gap="16px"
         >
           {goBackVisible && (
-            <IconButton
-              onClick={handleGoBack}
-              aria-label="Go back"
-              backgroundColor="fill-gray"
-              color="fill-darkBlue"
-            >
-              <MdArrowBack />
-            </IconButton>
+            <div>
+              <IconButton
+                onClick={handleGoBack}
+                aria-label="Go back"
+                backgroundColor="fill-gray"
+                color="fill-darkBlue"
+              >
+                <MdArrowBack />
+              </IconButton>
+            </div>
           )}
           <Box>
             <Heading as="h1" fontSize="24px" marginTop="8px" color="text-primary" fontWeight="bold">
@@ -63,12 +64,12 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         </Box>
       </Box>
       {actions && actions.length > 0 && (
-        <ButtonGroup width={{base: '100%', sm: 'auto'}} flexDirection={{base: 'column', md: 'row'}}>
+        <ButtonGroup direction={{base: 'column', sm: 'row'}} width={{base: '100%', sm: 'auto'}}>
           {actions.map(({label, onClick, icon}, index) => (
-            <StyledButton width={{base: '100%', sm: 'auto'}} key={index} onClick={onClick}>
+            <Button width={{base: '100%', sm: 'auto'}} key={index} onClick={onClick}>
               {label}
               {icon}
-            </StyledButton>
+            </Button>
           ))}
         </ButtonGroup>
       )}

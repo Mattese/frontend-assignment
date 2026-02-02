@@ -4,16 +4,17 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AuthenticatedLayout} from './layouts/AuthenticatedLayout';
 import {Create, Login, TodoList, Welcome} from './pages';
 import {ProtectedRoute, PublicRoute} from './components';
-import {Register} from './pages/Register';
+import {RegisterPage} from './pages/Register';
 import {UnauthenticatedLayout} from './layouts/UnauthenticatedLayout';
-import {ROUTES_NESTED} from './utils/routes';
+import {ROUTES_NESTED} from './constants/routes';
 import {Edit} from './pages/Todo/Edit';
+import {ErrorBoundary} from './components/ErrorBoundary';
 
 function App() {
   const {i18n, t} = useTranslation();
 
   return (
-    <>
+    <ErrorBoundary>
       <Helmet
         titleTemplate={`%s - ${t('app.title')}`}
         defaultTitle={t('app.title')}
@@ -33,7 +34,7 @@ function App() {
             }
           >
             <Route path={ROUTES_NESTED.PUBLIC.LOGIN} element={<Login />} />
-            <Route path={ROUTES_NESTED.PUBLIC.REGISTER} element={<Register />} />
+            <Route path={ROUTES_NESTED.PUBLIC.REGISTER} element={<RegisterPage />} />
           </Route>
 
           {/* Protected routes */}
@@ -51,7 +52,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </ErrorBoundary>
   );
 }
 

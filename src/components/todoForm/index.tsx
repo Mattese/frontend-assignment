@@ -1,4 +1,4 @@
-import {VStack, Textarea, HStack, Button} from '@chakra-ui/react';
+import {VStack, Button, Stack, Textarea, Field} from '@chakra-ui/react';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useForm, Controller} from 'react-hook-form';
 import {TextField} from '../textField';
@@ -54,26 +54,28 @@ export const TodoForm: React.FC<TodoFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit((data) => onSubmit(data))}>
-      <VStack align="stretch">
+      <VStack align="stretch" gap={6}>
         {/* Task Name Field */}
         <Controller
           name="title"
           control={control}
-          render={({field}) => <TextField label="Task name" {...field} />}
+          render={({field}) => <TextField required label="Task name" {...field} />}
         />
 
         <Controller
           name="description"
           control={control}
           render={({field}) => (
-            <Textarea placeholder="Enter task description" rows={4} resize="vertical" {...field} />
+            <Field.Root>
+              <Field.Label>Description (Optional)</Field.Label>
+              <Textarea size="xl" resize="vertical" {...field} />
+            </Field.Root>
           )}
         />
 
-        <HStack pt={4}>
+        <Stack pt={4} direction={{base: 'column', sm: 'row'}}>
           <Button
-            variant="outline"
-            colorScheme="gray"
+            colorScheme="blue"
             onClick={handleDiscard}
             disabled={isSubmitting || !isDirty}
             flex={1}
@@ -89,7 +91,7 @@ export const TodoForm: React.FC<TodoFormProps> = ({
           >
             {isEdit ? 'Update Task' : 'Create Task'}
           </Button>
-        </HStack>
+        </Stack>
       </VStack>
     </form>
   );

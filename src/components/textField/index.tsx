@@ -9,13 +9,13 @@ export interface FieldProps extends Omit<ChakraField.RootProps, 'label'> {
 }
 
 export const TextField = React.forwardRef<HTMLDivElement, FieldProps>((props, ref) => {
-  const {label, helperText, errorText, optionalText, ...rest} = props;
+  const {label, helperText, errorText, optionalText, required, ...rest} = props;
   return (
-    <ChakraField.Root ref={ref} invalid={!!errorText && errorText.length > 0}>
+    <ChakraField.Root required={required} ref={ref} invalid={!!errorText && errorText.length > 0}>
       {label && (
         <ChakraField.Label>
-          {label}
           <ChakraField.RequiredIndicator fallback={optionalText} />
+          {label}
         </ChakraField.Label>
       )}
       <Input {...rest} />

@@ -38,13 +38,10 @@ const authSlice = createSlice({
       const {token, refreshToken, user, isAuthenticated = true} = action.payload;
       if (token) state.token = token;
       state.refreshToken = refreshToken;
-      if (isAuthenticated !== undefined) {
-        state.isAuthenticated = isAuthenticated;
-      }
+      state.isAuthenticated = isAuthenticated;
 
-      if (user) {
-        state.user = user;
-      }
+      if (user) state.user = user;
+
       if (token) localStorage.setItem('accessToken', token);
       if (refreshToken) localStorage.setItem('refreshToken', refreshToken);
     },
