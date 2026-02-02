@@ -11,19 +11,6 @@ import {store} from './store/store';
 import theme from './theme';
 import {Toaster} from './components/ui/toaster';
 
-const TOAST_CONTAINER_CONFIG = {
-  position: 'top-right',
-  autoClose: 5000,
-  hideProgressBar: false,
-  newestOnTop: false,
-  closeOnClick: true,
-  rtl: false,
-  pauseOnFocusLoss: true,
-  draggable: true,
-  pauseOnHover: true,
-  theme: 'light',
-};
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>

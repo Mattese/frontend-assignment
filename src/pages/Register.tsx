@@ -1,23 +1,63 @@
-import {Heading} from '@chakra-ui/react';
+import {Heading, VStack} from '@chakra-ui/react';
+import {useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import {TextField, StyledButton} from 'src/components';
+import {PasswordInput} from 'src/components/ui/password-input';
 import {useAuth} from 'src/hooks/useAuth';
+import {useNavigate} from 'react-router-dom';
+import {ROUTES_NESTED} from 'src/utils/routes';
 
 const label = 'Register';
 
-export const Register: React.FC = () => {
-  const {register} = useAuth();
+interface RegisterFormData {
+  username: string;
+  password: string;
+}
 
-  const handleRegister = async () => {
-    // if (username && password) {
+const registerSchema = yup.object({
+  username: yup
+    .string()
+    .required('Username is required')
+    .min(3, 'Username must be at least 3 characters')
+    .max(20, 'Username must be less than 20 characters')
+    .matches(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+    ),
+});
+
+export const Register: React.FC = () => {
+  const {register: authRegister} = useAuth();
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: {errors, isSubmitting},
+  } = useForm<RegisterFormData>({
+    resolver: yupResolver(registerSchema),
+    mode: 'onChange',
+  });
+
+  const onSubmit = async (data: RegisterFormData) => {
     try {
-      await register('userName', 'heslo123');
+      await authRegister(data.username, data.password);
+
+      setTimeout(() => {
+        navigate(ROUTES_NESTED.PUBLIC.LOGIN);
+      }, 1500);
     } catch (err) {
       console.error('Registration failed:', err);
     }
-    // }
   };
+
   return (
-    <div>
+    <VStack gap={4} as="div" width={{base: '200px', sm: '400px'}}>
       <Heading fontWeight="bold" as="h1">
         Register
       </Heading>
@@ -26,13 +66,25 @@ export const Register: React.FC = () => {
         Create your account
       </Heading>
 
-      <TextField label="Username" />
-      <TextField label="Password" />
+      <form style={{width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
+        <VStack width="100%" gap={4}>
+          <TextField
+            label="Username"
+            {...register('username')}
+            errorText={errors.username?.message}
+          />
 
-      {/* TODO: implement onClick */}
-      <StyledButton width={{base: '100%', sm: 'auto'}} onClick={handleRegister}>
-        {label}
-      </StyledButton>
-    </div>
+          <PasswordInput
+            label="Password"
+            {...register('password')}
+            errorText={errors.password?.message}
+          />
+
+          <StyledButton width={{base: '100%', sm: 'auto'}} type="submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Registering...' : label}
+          </StyledButton>
+        </VStack>
+      </form>
+    </VStack>
   );
 };

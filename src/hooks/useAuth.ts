@@ -1,5 +1,6 @@
+import {toaster} from 'src/components/ui/toaster';
 import {useLoginMutation, useRegisterMutation, useGetUserQuery} from 'src/store/api/authApi';
-import {setCredentials, logoutUser} from 'src/store/authSlice';
+import {setCredentials} from 'src/store/authSlice';
 import {useAppDispatch, useAppSelector} from 'src/store/hooks';
 
 export const useAuth = () => {
@@ -10,7 +11,6 @@ export const useAuth = () => {
   const [registerMutation, {isLoading: registerLoading, error: registerError}] =
     useRegisterMutation();
 
-  // Only fetch user if we have a token but no user data
   const {
     data: userData,
     isLoading: userLoading,
@@ -20,27 +20,60 @@ export const useAuth = () => {
   });
 
   const login = async (username: string, password: string) => {
-    const result = await loginMutation({username, password}).unwrap();
-    dispatch(
-      setCredentials({
-        token: result.accessToken,
-        refreshToken: result.refreshToken,
-      })
-    );
+    try {
+      const result = await loginMutation({username, password}).unwrap();
+
+      dispatch(
+        setCredentials({
+          token: result.accessToken,
+          refreshToken: result.refreshToken,
+        })
+      );
+
+      toaster.success({
+        title: 'Login Successful',
+        description: 'You have successfully logged in.',
+        type: 'success',
+      });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toaster.error({
+        title: 'Login Failed',
+        description: 'Please check your credentials and try again.',
+        type: 'error',
+      });
+    }
   };
 
   const register = async (username: string, password: string) => {
-    const result = await registerMutation({username, password}).unwrap();
-    dispatch(
-      setCredentials({
-        token: result.accessToken,
-        refreshToken: result.refreshToken,
-      })
-    );
+    try {
+      await registerMutation({username, password}).unwrap();
+
+      toaster.success({
+        title: 'Registration Successful',
+        description: 'You can now log in with your credentials.',
+        type: 'success',
+      });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toaster.error({
+        title: 'Registration Failed',
+        description: 'Please try again later.',
+        type: 'error',
+      });
+    }
   };
 
   const logout = () => {
-    dispatch(logoutUser());
+    dispatch(
+      setCredentials({
+        token: null,
+        refreshToken: null,
+        isAuthenticated: false,
+      })
+    );
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
   };
 
   return {

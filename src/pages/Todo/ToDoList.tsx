@@ -1,75 +1,17 @@
-import {Box, Heading, IconButton, Text, Menu, Portal, Checkmark} from '@chakra-ui/react';
+import {Box, Heading, Spinner, VStack} from '@chakra-ui/react';
 import * as React from 'react';
 import {useMemo} from 'react';
 import {MdAdd} from 'react-icons/md';
 import {useNavigate} from 'react-router-dom';
-import {BiDotsVerticalRounded} from 'react-icons/bi';
 import {ROUTES_NESTED} from 'src/utils/routes';
 import {useGetTodosQuery} from 'src/store/api/todoApi';
 import {isArray} from 'src/utils/typeGuards';
 import {getCurrentDate} from 'src/utils/date';
 import {useAuth} from 'src/hooks/useAuth';
-import {EmptyContent, PageHeader} from 'src/components';
+import {EmptyContent, PageHeader, TodoItem} from 'src/components';
 
 const EMPTY_TITLE = 'You are amazing!';
 const EMPTY_DESCRIPTION = 'There is no more task to do.';
-
-interface TodoItemProps {
-  title: string;
-  completed: boolean;
-  description?: string;
-}
-
-const TodoItem: React.FC<TodoItemProps> = ({title, completed, description}) => (
-  <Box
-    display="flex"
-    flexDirection="row"
-    alignItems="center"
-    justifyContent="space-between"
-    padding="12px 0"
-  >
-    <Box display="flex" flexDirection="row" alignItems="baseline" gap="12px">
-      <Box>
-        <Checkmark variant="solid" size="lg" checked={completed} />
-      </Box>
-      <Box>
-        <Heading as="h3">{title}</Heading>
-        <Text color="text-tertiary" as="h4" marginTop="12px">
-          {description}
-        </Text>
-      </Box>
-    </Box>
-    <Box>
-      <Menu.Root>
-        <Menu.Trigger asChild>
-          <IconButton variant="ghost" aria-label="Task options">
-            <BiDotsVerticalRounded />
-          </IconButton>
-        </Menu.Trigger>
-        <Portal>
-          <Menu.Content
-            bg="bg-secondary"
-            borderRadius="8px"
-            boxShadow="0px 4px 16px rgba(0, 0, 0, 0.1)"
-            padding="8px 0"
-            minWidth="160px"
-          >
-            {/* <Menu.Item
-                onSelect={() => {
-                  // Handle edit action
-                }}
-              ><Menu.ItemText
-                Edit
-              </Menu.ItemText></Menu.Item> */}
-            <Menu.Item value="delete">
-              <Menu.ItemText>Delete</Menu.ItemText>
-            </Menu.Item>
-          </Menu.Content>
-        </Portal>
-      </Menu.Root>
-    </Box>
-  </Box>
-);
 
 export const TodoList: React.FC = () => {
   const {user} = useAuth();
@@ -90,8 +32,6 @@ export const TodoList: React.FC = () => {
     []
   );
 
-  const isTodosEmpty = useMemo(() => !todos || !isArray(todos) || todos.length === 0, [todos]);
-
   const {incompleteTodos, completedTodos} = useMemo(() => {
     if (isLoading || !isArray(todos)) return {incompleteTodos: [], completedTodos: []};
 
@@ -111,6 +51,11 @@ export const TodoList: React.FC = () => {
     );
   }, [todos, isLoading]);
 
+  const isIncompleteTodosEmpty = useMemo(
+    () => !incompleteTodos || incompleteTodos.length === 0,
+    [incompleteTodos]
+  );
+
   return (
     <>
       <PageHeader
@@ -119,31 +64,55 @@ export const TodoList: React.FC = () => {
         actions={actions}
       />
       <Box marginTop="24px">
-        {isTodosEmpty ? (
-          <EmptyContent title={EMPTY_TITLE} description={EMPTY_DESCRIPTION} />
+        {isLoading ? (
+          <Spinner />
         ) : (
-          <Box divideY="2px">
-            <Box>
-              {incompleteTodos.map((todo) => (
-                <TodoItem
-                  key={todo.id}
-                  title={todo.title}
-                  completed={todo.completed}
-                  description={todo.description}
-                />
-              ))}
-            </Box>
-            <Box marginTop="24px">
-              {completedTodos.map((todo) => (
-                <TodoItem
-                  key={todo.id}
-                  title={todo.title}
-                  completed={todo.completed}
-                  description={todo.description}
-                />
-              ))}
-            </Box>
-          </Box>
+          <VStack gap={4} as="div">
+            {isIncompleteTodosEmpty ? (
+              <EmptyContent title={EMPTY_TITLE} description={EMPTY_DESCRIPTION} />
+            ) : (
+              <>
+                <Box width="100%">
+                  <Heading wordWrap="break-word" fontWeight="semibold" as="h2" size="md">
+                    To-do
+                  </Heading>
+                </Box>
+                <Box width="100%" height="1px" bg="gray.300" />
+                <Box width="100%">
+                  {incompleteTodos.map((todo) => (
+                    <TodoItem
+                      id={todo.id}
+                      key={todo.id}
+                      title={todo.title}
+                      completed={todo.completed}
+                      description={todo.description}
+                    />
+                  ))}
+                </Box>
+              </>
+            )}
+            {completedTodos.length > 0 && (
+              <>
+                <Box width="100%">
+                  <Heading wordWrap="break-word" fontWeight="semibold" as="h2" size="md">
+                    Completed
+                  </Heading>
+                </Box>
+                <Box width="100%" height="1px" bg="gray.300" />
+                <Box marginTop="24px" width="100%">
+                  {completedTodos.map((todo) => (
+                    <TodoItem
+                      id={todo.id}
+                      key={todo.id}
+                      title={todo.title}
+                      completed={todo.completed}
+                      description={todo.description}
+                    />
+                  ))}
+                </Box>
+              </>
+            )}
+          </VStack>
         )}
       </Box>
     </>

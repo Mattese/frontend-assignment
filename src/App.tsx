@@ -7,6 +7,7 @@ import {ProtectedRoute, PublicRoute} from './components';
 import {Register} from './pages/Register';
 import {UnauthenticatedLayout} from './layouts/UnauthenticatedLayout';
 import {ROUTES_NESTED} from './utils/routes';
+import {Edit} from './pages/Todo/Edit';
 
 function App() {
   const {i18n, t} = useTranslation();
@@ -46,6 +47,7 @@ function App() {
             <Route path={ROUTES_NESTED.PROTECTED.HOME} element={<Welcome />} />
             <Route path={ROUTES_NESTED.PROTECTED.TODOS.LIST} element={<TodoList />} />
             <Route path={ROUTES_NESTED.PROTECTED.TODOS.CREATE} element={<Create />} />
+            <Route path={ROUTES_NESTED.PROTECTED.TODOS.EDIT} element={<Edit />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -2,23 +2,23 @@ import {Field as ChakraField, Input} from '@chakra-ui/react';
 import * as React from 'react';
 
 export interface FieldProps extends Omit<ChakraField.RootProps, 'label'> {
-  label?: React.ReactNode;
-  helperText?: React.ReactNode;
-  errorText?: React.ReactNode;
-  optionalText?: React.ReactNode;
+  label?: string;
+  helperText?: string;
+  errorText?: string;
+  optionalText?: string;
 }
 
 export const TextField = React.forwardRef<HTMLDivElement, FieldProps>((props, ref) => {
-  const {label, children, helperText, errorText, optionalText, ...rest} = props;
+  const {label, helperText, errorText, optionalText, ...rest} = props;
   return (
-    <ChakraField.Root ref={ref} {...rest}>
+    <ChakraField.Root ref={ref} invalid={!!errorText && errorText.length > 0}>
       {label && (
         <ChakraField.Label>
           {label}
           <ChakraField.RequiredIndicator fallback={optionalText} />
         </ChakraField.Label>
       )}
-      <Input />
+      <Input {...rest} />
       {helperText && <ChakraField.HelperText>{helperText}</ChakraField.HelperText>}
       {errorText && <ChakraField.ErrorText>{errorText}</ChakraField.ErrorText>}
     </ChakraField.Root>

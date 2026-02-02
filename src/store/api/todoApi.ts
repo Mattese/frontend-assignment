@@ -1,10 +1,10 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
-import {baseQueryWithAuth} from './api';
+import {baseQueryWithReauth} from './api';
 import {TodoResponse, CreateTodoBody} from './types';
 
 export const todoApi = createApi({
   reducerPath: 'todoApi',
-  baseQuery: baseQueryWithAuth,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Todo'],
   endpoints: (builder) => ({
     getTodos: builder.query<{todos: TodoResponse[]}, void>({
@@ -63,6 +63,7 @@ export const todoApi = createApi({
 
 export const {
   useGetTodosQuery,
+  useGetTodoQuery,
   useCreateTodoMutation,
   useUpdateTodoMutation,
   useDeleteTodoMutation,

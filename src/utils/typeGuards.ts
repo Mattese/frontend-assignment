@@ -95,9 +95,7 @@ export const hasPropOfType = <K extends PropertyKey, PT>(
   object: object,
   prop: K,
   typeGuard: (propValue: unknown) => propValue is PT
-): object is Record<K, PT> => {
-  return hasProp(object, prop) && typeGuard(object[prop]);
-};
+): object is Record<K, PT> => hasProp(object, prop) && typeGuard(object[prop]);
 
 /**
  * Creates type guard function for checking arrays, including type of their items.
