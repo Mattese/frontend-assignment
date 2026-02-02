@@ -1,9 +1,8 @@
-import {PageHeader, EmptyContent} from '@/components';
-
-import {getCurrentDate} from '@/utils/date';
 import {Box} from '@chakra-ui/react';
 import * as React from 'react';
 import {useMemo} from 'react';
+import {EmptyContent, PageHeader} from 'src/components';
+import {getCurrentDate} from 'src/utils/date';
 
 export const TodoList: React.FC = () => {
   //TODO: change hardcoded name to logged in user's name
