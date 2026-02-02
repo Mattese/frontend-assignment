@@ -9,12 +9,14 @@ import WebVitals from './WebVitals';
 import './i18n/i18n';
 import {store} from './store/store';
 import theme from './theme';
+import {Toaster} from './components/ui/toaster';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
       <ChakraProvider value={theme}>
         <HelmetProvider>
+          <Toaster />
           <App />
           <GlobalStyles />
           <WebVitals showStatusInConsoleLog />

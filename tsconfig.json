@@ -15,12 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "baseUrl": "."
   },
-  "include": ["backend/**/*", "./src/**/*"],
-  "exclude": ["node_modules"],
+  "include": ["./src/**/*", "./@types/**/*"],
+  "exclude": ["node_modules", "backend"],
   "files": ["./@types/svg.d.ts", "@types/environment.d.ts"]
 }

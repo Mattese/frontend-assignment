@@ -64,7 +64,7 @@ userRoutes.post('/api/refresh-token', (req: Request, res: Response) => {
     return res.status(400).json({error: "Refresh token can't be empty"});
   }
 
-  jwt.verify(refreshToken, process.env.REFRESH_KEY, (err: any, user: any) => {
+  jwt.verify(refreshToken, process.env.REFRESH_KEY!, (err: any, user: any) => {
     if (err) return res.status(401).json({error: 'Invalid refresh token'});
 
     const accessToken = signAccessToken(user.userId, user.username);

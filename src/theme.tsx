@@ -65,9 +65,100 @@ const theme = createSystem(defaultConfig, {
       button: {
         base: {
           bg: 'unset',
-          backgroundColor: '#0F62FE',
-          color: '#FFFFFF',
+          backgroundColor: 'fill-brand',
+          color: 'fill-white',
           borderRadius: '100px',
+          transition: 'all 0.2s ease-in-out',
+          _hover: {
+            backgroundColor: 'fill-brand-hover !important',
+            color: 'fill-white',
+            transform: 'none',
+            boxShadow: 'none',
+          },
+          _active: {
+            backgroundColor: 'fill-brand-hover !important',
+            color: 'fill-white',
+          },
+          _focus: {
+            backgroundColor: 'fill-brand-hover !important',
+            color: 'fill-white',
+            boxShadow: 'none',
+          },
+        },
+        variants: {
+          variant: {
+            ghost: {
+              backgroundColor: 'transparent !important',
+              color: 'text-secondary',
+              border: 'none',
+              boxShadow: 'none',
+              _hover: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+              },
+              _active: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+              },
+              _focus: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+                boxShadow: 'none',
+              },
+            },
+          },
+        },
+      },
+      iconButton: {
+        base: {
+          border: 'none',
+          boxShadow: 'none',
+        },
+        variants: {
+          variant: {
+            ghost: {
+              backgroundColor: 'fill-gray-hover !important',
+              color: 'text-secondary',
+              _hover: {
+                backgroundColor: 'fill-gray-hover !important',
+                bg: 'transparent !important',
+              },
+              _active: {
+                backgroundColor: 'fill-gray-hover !important',
+                bg: 'transparent !important',
+              },
+              _focus: {
+                backgroundColor: 'transparent !important',
+                bg: 'transparent !important',
+                boxShadow: 'none',
+              },
+            },
+          },
+        },
+      },
+      checkmark: {
+        base: {
+          borderRadius: '100px',
+          color: 'fill-white',
+          backgroundColor: 'fill-brand',
+          borderColor: 'fill-brand',
+        },
+        variants: {
+          variant: {
+            solid: {
+              backgroundColor: 'transparent',
+              '&:is([data-state=checked], [data-state=indeterminate])': {
+                color: 'fill-white',
+                backgroundColor: 'fill-brand',
+                borderColor: 'fill-brand',
+              },
+            },
+          },
+          size: {
+            sm: {width: '16px', height: '16px'},
+            md: {width: '24px', height: '24px'},
+            lg: {width: '32px', height: '32px'},
+          },
         },
       },
     },
