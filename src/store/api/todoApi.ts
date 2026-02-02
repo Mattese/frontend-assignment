@@ -7,7 +7,7 @@ export const todoApi = createApi({
   baseQuery: baseQueryWithAuth,
   tagTypes: ['Todo'],
   endpoints: (builder) => ({
-    getTodos: builder.query<TodoResponse[], void>({
+    getTodos: builder.query<{todos: TodoResponse[]}, void>({
       query: () => '/todo/list',
       providesTags: ['Todo'],
     }),
