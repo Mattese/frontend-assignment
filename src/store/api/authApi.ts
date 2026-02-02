@@ -9,7 +9,7 @@ import {
   RefreshTokenBody,
   RefreshTokenResponse,
 } from './types';
-import {handleApiError} from '@/utils/errorHandler';
+import {handleApiError} from 'src/utils/errorHandler';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -27,7 +27,7 @@ export const authApi = createApi({
         method: 'POST',
         body: credentials,
       }),
-      transformErrorResponse: (response, meta, arg) => {
+      transformErrorResponse: (response) => {
         handleApiError(response);
         return response;
       },

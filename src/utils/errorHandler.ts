@@ -1,6 +1,6 @@
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query';
 import {SerializedError} from '@reduxjs/toolkit';
-import {toaster} from '@/components/ui/toaster';
+import {toaster} from 'src/components/ui/toaster';
 
 interface ErrorResponse {
   message?: string;
@@ -60,7 +60,6 @@ export const handleApiError = (error: FetchBaseQueryError | SerializedError | un
     title: errorMessage,
     type: 'error',
     closable: true,
-    placement: 'bottom-end',
     duration: 3000,
   });
 };
@@ -70,7 +69,6 @@ export const showSuccessToast = (message: string) => {
     title: message,
     type: 'success',
     closable: true,
-    placement: 'bottom-end',
     duration: 3000,
   });
 };

@@ -1,13 +1,12 @@
-import {TextField} from '@/components';
-import {StyledButton} from '@/components/button';
-import {PasswordInput, PasswordStrengthMeter} from '@/components/ui/password-input';
-import {useAuth} from '@/hooks/useAuth';
 import {Heading} from '@chakra-ui/react';
+import {TextField, StyledButton} from 'src/components';
+import {PasswordInput, PasswordStrengthMeter} from 'src/components/ui/password-input';
+import {useAuth} from 'src/hooks/useAuth';
 
 const label = 'Login';
 
 export const Login: React.FC = () => {
-  const {login, loading} = useAuth();
+  const {login} = useAuth();
   const handleLogin = async () => {
     // if (username && password) {
     try {
@@ -30,7 +29,7 @@ export const Login: React.FC = () => {
       </Heading>
 
       <TextField label="Username" />
-      <TextField label="Password" type="password" />
+      <TextField label="Password" />
       <PasswordInput placeholder="Enter password" />
       <PasswordStrengthMeter value={0} />
 

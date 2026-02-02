@@ -1,6 +1,4 @@
 import {createSystem, defaultConfig} from '@chakra-ui/react';
-import {size} from 'cypress/types/lodash';
-import {color} from 'framer-motion';
 
 const fontSizes = {
   heading: {
