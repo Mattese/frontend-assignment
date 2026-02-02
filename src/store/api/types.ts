@@ -46,8 +46,6 @@ export type RefreshTokenResponse = Readonly<{
   accessToken?: AccessToken;
 }>;
 
-// TODO API TYPES
-
 export type CreateTodoBody = Readonly<{
   title: TodoTitle;
   description?: TodoDescription;

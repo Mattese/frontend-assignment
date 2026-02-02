@@ -4,7 +4,7 @@ import {PageHeader} from 'src/components';
 import {TodoForm, TodoFormData} from 'src/components/todoForm';
 import {useCreateTodoMutation} from 'src/store/api/todoApi';
 import {showSuccessToast} from 'src/utils/errorHandler';
-import {ROUTES_NESTED} from 'src/utils/routes';
+import {ROUTES_NESTED} from 'src/constants/routes';
 
 export const Create: React.FC = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export const Create: React.FC = () => {
     }
   };
 
-  const onDiscard = () => navigate(ROUTES_NESTED.PROTECTED.TODOS.LIST);
+  const onDiscard = () => null;
 
   return (
     <>

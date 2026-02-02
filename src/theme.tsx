@@ -68,6 +68,22 @@ const theme = createSystem(defaultConfig, {
           backgroundColor: 'fill-brand',
           color: 'fill-white',
           borderRadius: '100px',
+          transition: 'all 0.2s ease-in-out',
+          _hover: {
+            backgroundColor: 'fill-brand-hover !important',
+            color: 'fill-white',
+            transform: 'none',
+            boxShadow: 'none',
+          },
+          _active: {
+            backgroundColor: 'fill-brand-hover !important',
+            color: 'fill-white',
+          },
+          _focus: {
+            backgroundColor: 'fill-brand-hover !important',
+            color: 'fill-white',
+            boxShadow: 'none',
+          },
         },
         variants: {
           variant: {
@@ -101,14 +117,14 @@ const theme = createSystem(defaultConfig, {
         variants: {
           variant: {
             ghost: {
-              backgroundColor: 'transparent !important',
+              backgroundColor: 'fill-gray-hover !important',
               color: 'text-secondary',
               _hover: {
-                backgroundColor: 'transparent !important',
+                backgroundColor: 'fill-gray-hover !important',
                 bg: 'transparent !important',
               },
               _active: {
-                backgroundColor: 'transparent !important',
+                backgroundColor: 'fill-gray-hover !important',
                 bg: 'transparent !important',
               },
               _focus: {

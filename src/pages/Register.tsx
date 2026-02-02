@@ -1,18 +1,19 @@
-import {Heading, VStack} from '@chakra-ui/react';
+import {Button, Heading, VStack} from '@chakra-ui/react';
 import {useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import {TextField, StyledButton} from 'src/components';
+import {TextField} from 'src/components';
 import {PasswordInput} from 'src/components/ui/password-input';
 import {useAuth} from 'src/hooks/useAuth';
 import {useNavigate} from 'react-router-dom';
-import {ROUTES_NESTED} from 'src/utils/routes';
+import {ROUTES_NESTED} from 'src/constants/routes';
 
 const label = 'Register';
 
 interface RegisterFormData {
   username: string;
   password: string;
+  confirmPassword: string;
 }
 
 const registerSchema = yup.object({
@@ -30,9 +31,13 @@ const registerSchema = yup.object({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
       'Password must contain at least one uppercase letter, one lowercase letter, and one number'
     ),
+  confirmPassword: yup
+    .string()
+    .required('Please confirm password')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
 });
 
-export const Register: React.FC = () => {
+export const RegisterPage: React.FC = () => {
   const {register: authRegister} = useAuth();
   const navigate = useNavigate();
   const {
@@ -47,10 +52,9 @@ export const Register: React.FC = () => {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       await authRegister(data.username, data.password);
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      setTimeout(() => {
-        navigate(ROUTES_NESTED.PUBLIC.LOGIN);
-      }, 1500);
+      navigate(ROUTES_NESTED.PUBLIC.LOGIN);
     } catch (err) {
       console.error('Registration failed:', err);
     }
@@ -79,10 +83,15 @@ export const Register: React.FC = () => {
             {...register('password')}
             errorText={errors.password?.message}
           />
+          <PasswordInput
+            label="Confirm Password"
+            {...register('confirmPassword')}
+            errorText={errors.confirmPassword?.message}
+          />
 
-          <StyledButton width={{base: '100%', sm: 'auto'}} type="submit" disabled={isSubmitting}>
+          <Button width={{base: '100%', sm: 'auto'}} type="submit" disabled={isSubmitting}>
             {isSubmitting ? 'Registering...' : label}
-          </StyledButton>
+          </Button>
         </VStack>
       </form>
     </VStack>

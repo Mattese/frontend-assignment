@@ -21,6 +21,24 @@ export const baseQueryWithAuth = fetchBaseQuery({
 
     return headers;
   },
+
+  responseHandler: async (response) => {
+    const contentType = response.headers.get('content-type');
+    if (contentType?.includes('application/json')) {
+      return response.json();
+    }
+
+    if (response.status === 201 || response.status === 204 || contentType?.includes('text')) {
+      return {};
+    }
+
+    const text = await response.text();
+    try {
+      return JSON.parse(text);
+    } catch {
+      return text;
+    }
+  },
 });
 export const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,

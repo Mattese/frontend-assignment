@@ -1,4 +1,5 @@
 import {toaster} from 'src/components/ui/toaster';
+import {TOAST_MESSAGES} from 'src/constants/toastMessages';
 import {useLoginMutation, useRegisterMutation, useGetUserQuery} from 'src/store/api/authApi';
 import {setCredentials} from 'src/store/authSlice';
 import {useAppDispatch, useAppSelector} from 'src/store/hooks';
@@ -30,18 +31,10 @@ export const useAuth = () => {
         })
       );
 
-      toaster.success({
-        title: 'Login Successful',
-        description: 'You have successfully logged in.',
-        type: 'success',
-      });
+      toaster.success(TOAST_MESSAGES.AUTH.LOGIN_SUCCESS);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toaster.error({
-        title: 'Login Failed',
-        description: 'Please check your credentials and try again.',
-        type: 'error',
-      });
+      toaster.error(TOAST_MESSAGES.AUTH.LOGIN_ERROR);
     }
   };
 
@@ -49,18 +42,10 @@ export const useAuth = () => {
     try {
       await registerMutation({username, password}).unwrap();
 
-      toaster.success({
-        title: 'Registration Successful',
-        description: 'You can now log in with your credentials.',
-        type: 'success',
-      });
+      toaster.success(TOAST_MESSAGES.AUTH.REGISTRATION_SUCCESS);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toaster.error({
-        title: 'Registration Failed',
-        description: 'Please try again later.',
-        type: 'error',
-      });
+      toaster.error(TOAST_MESSAGES.AUTH.REGISTRATION_ERROR);
     }
   };
 

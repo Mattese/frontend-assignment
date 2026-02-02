@@ -12,9 +12,8 @@ import {
 export const toaster = createToaster({
   placement: 'bottom-end',
   pauseOnPageIdle: true,
+  offsets: '20px',
 });
-
-// TODO: Fix type error
 
 export const Toaster = () => (
   <Portal>

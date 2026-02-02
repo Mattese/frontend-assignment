@@ -1,6 +1,6 @@
 import {Navigate, useLocation} from 'react-router-dom';
 import {useAuth} from 'src/hooks/useAuth';
-import {ROUTES_NESTED} from 'src/utils/routes';
+import {ROUTES_NESTED} from 'src/constants/routes';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
