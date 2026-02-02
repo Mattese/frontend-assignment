@@ -31,10 +31,10 @@ export const useAuth = () => {
         })
       );
 
-      toaster.success(TOAST_MESSAGES.AUTH.LOGIN_SUCCESS);
+      toaster.create(TOAST_MESSAGES.AUTH.LOGIN_SUCCESS);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toaster.error(TOAST_MESSAGES.AUTH.LOGIN_ERROR);
+      toaster.create(TOAST_MESSAGES.AUTH.LOGIN_ERROR);
     }
   };
 
@@ -42,10 +42,10 @@ export const useAuth = () => {
     try {
       await registerMutation({username, password}).unwrap();
 
-      toaster.success(TOAST_MESSAGES.AUTH.REGISTRATION_SUCCESS);
+      toaster.create(TOAST_MESSAGES.AUTH.REGISTRATION_SUCCESS);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toaster.error(TOAST_MESSAGES.AUTH.REGISTRATION_ERROR);
+      toaster.create(TOAST_MESSAGES.AUTH.REGISTRATION_ERROR);
     }
   };
 

@@ -18,7 +18,7 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({
   restrictWhenAuthenticated = true,
 }) => {
   const {isAuthenticated} = useAuth();
-  console.log('PublicRoute - isAuthenticated:', isAuthenticated);
+
   if (restrictWhenAuthenticated && isAuthenticated) {
     const from = redirectTo;
     return <Navigate to={from} replace />;

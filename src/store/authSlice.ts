@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AccessToken, RefreshToken, UserResponse} from './api/types';
+import LOCAL_STORAGE_KEYS from 'src/constants/localStorageKeys';
 
 type User = UserResponse & {};
 
@@ -11,8 +12,8 @@ interface AuthState {
 }
 
 const getInitialState = (): AuthState => {
-  const token = localStorage.getItem('accessToken');
-  const refreshToken = localStorage.getItem('refreshToken');
+  const token = localStorage.getItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
+  const refreshToken = localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN);
 
   return {
     user: null,

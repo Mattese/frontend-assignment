@@ -15,7 +15,7 @@ interface LoginFormData {
   password: string;
 }
 
-const registerSchema = yup.object({
+const loginSchema = yup.object({
   username: yup.string().required('Username is required'),
   password: yup.string().required('Password is required'),
 });
@@ -28,7 +28,7 @@ export const LoginPage: React.FC = () => {
     handleSubmit,
     formState: {errors, isSubmitting},
   } = useForm<LoginFormData>({
-    resolver: yupResolver(registerSchema),
+    resolver: yupResolver(loginSchema),
     mode: 'onChange',
   });
 
