@@ -11,6 +11,7 @@ import {
   Stack,
   mergeRefs,
   useControllableState,
+  Field as ChakraField,
 } from '@chakra-ui/react';
 import * as React from 'react';
 import {LuEye, LuEyeOff} from 'react-icons/lu';
@@ -38,6 +39,8 @@ export interface PasswordVisibilityProps {
 
 export interface PasswordInputProps extends InputProps, PasswordVisibilityProps {
   rootProps?: GroupProps;
+  errorText?: string;
+  label?: string;
 }
 
 export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
@@ -48,6 +51,8 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
       visible: visibleProp,
       onVisibleChange,
       visibilityIcon = {on: <LuEye />, off: <LuEyeOff />},
+      errorText,
+      label,
       ...rest
     } = props;
 
@@ -76,7 +81,11 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
         }
         {...rootProps}
       >
-        <Input {...rest} ref={mergeRefs(ref, inputRef)} type={visible ? 'text' : 'password'} />
+        <ChakraField.Root invalid={!!errorText && errorText.length > 0}>
+          {label && <ChakraField.Label>{label}</ChakraField.Label>}
+          <Input {...rest} ref={mergeRefs(ref, inputRef)} type={visible ? 'text' : 'password'} />
+          {errorText && <ChakraField.ErrorText>{errorText}</ChakraField.ErrorText>}
+        </ChakraField.Root>
       </InputGroup>
     );
   }
@@ -92,7 +101,11 @@ const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aspectRatio="square"
         size="sm"
         variant="ghost"
-        height="calc(100% - {spacing.2})"
+        height="40px"
+        position="absolute"
+        right="4px"
+        top="33px"
+        transform="translateY(-25%)"
         aria-label="Toggle password visibility"
         {...props}
       />

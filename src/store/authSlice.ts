@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RefreshToken, AccessToken, UserResponse} from './api/types';
+import {AccessToken, RefreshToken, UserResponse} from './api/types';
 
 type User = UserResponse & {};
 
@@ -10,44 +10,58 @@ interface AuthState {
   isAuthenticated: boolean;
 }
 
-const loadTokenFromStorage = (): string | null => {
-  try {
-    return localStorage.getItem('accessToken');
-  } catch {
-    return null;
-  }
-};
+const getInitialState = (): AuthState => {
+  const token = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
 
-const initialState: AuthState = {
-  user: null,
-  token: loadTokenFromStorage(),
-  refreshToken: null,
-  isAuthenticated: false,
+  return {
+    user: null,
+    token,
+    refreshToken,
+    isAuthenticated: !!token,
+  };
 };
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: getInitialState(),
   reducers: {
-    logoutUser: (state) => {
+    setCredentials: (
+      state,
+      action: PayloadAction<{
+        token?: AccessToken | null;
+        refreshToken: RefreshToken | null;
+        user?: User;
+        isAuthenticated?: boolean;
+      }>
+    ) => {
+      const {token, refreshToken, user, isAuthenticated = true} = action.payload;
+      if (token) state.token = token;
+      state.refreshToken = refreshToken;
+      if (isAuthenticated !== undefined) {
+        state.isAuthenticated = isAuthenticated;
+      }
+
+      if (user) {
+        state.user = user;
+      }
+      if (token) localStorage.setItem('accessToken', token);
+      if (refreshToken) localStorage.setItem('refreshToken', refreshToken);
+    },
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
+    logout: (state) => {
       state.user = null;
       state.token = null;
       state.refreshToken = null;
       state.isAuthenticated = false;
+
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
-    },
-    setCredentials: (state, action: PayloadAction<{token: string; refreshToken?: string}>) => {
-      state.token = action.payload.token;
-      state.refreshToken = action.payload.refreshToken || null;
-      state.isAuthenticated = true;
-      localStorage.setItem('accessToken', action.payload.token);
-      if (action.payload.refreshToken) {
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
-      }
     },
   },
 });
 
-export const {logoutUser, setCredentials} = authSlice.actions;
+export const {setCredentials, setUser, logout} = authSlice.actions;
 export default authSlice.reducer;

@@ -8,11 +8,11 @@ export const ROUTES_NESTED = {
     TODOS: {
       LIST: '/todos',
       CREATE: '/todos/create',
-      DETAIL: (id: string) => `/todos/${id}`,
-      EDIT: (id: string) => `/todos/${id}/edit`,
+      DETAIL: `/todos/:id`,
+      EDIT: `/todos/edit/:id`,
     },
   },
 } as const;
 
 export const createTodoDetailRoute = (id: string) => `/todos/${id}`;
-export const createTodoEditRoute = (id: string) => `/todos/${id}/edit`;
+export const createTodoEditRoute = (id: string) => `/todos/edit/${id}`;

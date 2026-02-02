@@ -1,5 +1,6 @@
-import {useLocation} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import {useAuth} from 'src/hooks/useAuth';
+import {ROUTES_NESTED} from 'src/utils/routes';
 
 interface PublicRouteProps {
   children: React.ReactNode;
@@ -13,16 +14,15 @@ interface PublicRouteProps {
  */
 export const PublicRoute: React.FC<PublicRouteProps> = ({
   children,
-  redirectTo = '/todos',
+  redirectTo = ROUTES_NESTED.PROTECTED.TODOS.LIST,
   restrictWhenAuthenticated = true,
 }) => {
-  const {user, isAuthenticated} = useAuth();
-  const location = useLocation();
-
-  // if (restrictWhenAuthenticated && (isAuthenticated || user)) {
-  //   const from = (location.state as any)?.from?.pathname || redirectTo;
-  //   return <Navigate to={from} replace />;
-  // }
+  const {isAuthenticated} = useAuth();
+  console.log('PublicRoute - isAuthenticated:', isAuthenticated);
+  if (restrictWhenAuthenticated && isAuthenticated) {
+    const from = redirectTo;
+    return <Navigate to={from} replace />;
+  }
 
   return <>{children}</>;
 };

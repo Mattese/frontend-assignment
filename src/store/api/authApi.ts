@@ -1,5 +1,5 @@
 import {createApi} from '@reduxjs/toolkit/query/react';
-import {baseQueryWithAuth} from './api';
+import {baseQueryWithReauth} from './api';
 import {
   RegisterBody,
   RegisterResponse,
@@ -13,7 +13,7 @@ import {handleApiError} from 'src/utils/errorHandler';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: baseQueryWithAuth,
+  baseQuery: baseQueryWithReauth,
   tagTypes: ['Auth', 'User'],
   endpoints: (builder) => ({
     getUser: builder.query<UserResponse, void>({
@@ -44,9 +44,10 @@ export const authApi = createApi({
     }),
 
     refreshToken: builder.mutation<RefreshTokenResponse, RefreshTokenBody>({
-      query: () => ({
+      query: (body) => ({
         url: '/refresh-token',
         method: 'POST',
+        body,
       }),
       invalidatesTags: ['Auth'],
     }),
