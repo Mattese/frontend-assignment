@@ -53,7 +53,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
           <Box>
             <Heading as="h1" fontSize="24px" marginTop="8px" color="text-primary" fontWeight="bold">
               {title}
-            </Heading>{' '}
+            </Heading>
             {subTitle && (
               <Heading color="text-tertiary" as="h4" marginTop="4px">
                 {subTitle}
