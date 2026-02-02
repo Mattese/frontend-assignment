@@ -9,21 +9,20 @@ export const useTodoActions = (id: string) => {
   const handleDelete = async () => {
     try {
       await deleteTodo({id}).unwrap();
-      toaster.success(TOAST_MESSAGES.TODO.DELETED);
+      toaster.create(TOAST_MESSAGES.TODO.DELETED);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      toaster.error(TOAST_MESSAGES.TODO.ERROR_DELETE);
+      toaster.create(TOAST_MESSAGES.TODO.ERROR_DELETE);
     }
   };
 
   const handleComplete = async () => {
     try {
       await markTodoAsCompleted({id}).unwrap();
-      toaster.success(TOAST_MESSAGES.TODO.COMPLETED);
+      toaster.create(TOAST_MESSAGES.TODO.COMPLETED);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      console.log('Error completing todo:', error);
-      toaster.error(TOAST_MESSAGES.TODO.ERROR_COMPLETE);
+      toaster.create(TOAST_MESSAGES.TODO.ERROR_COMPLETE);
     }
   };
 

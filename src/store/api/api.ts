@@ -7,6 +7,7 @@ import {
 import type {RootState} from '../store';
 import {Mutex} from 'async-mutex';
 import {logout, setCredentials} from '../authSlice';
+import LOCAL_STORAGE_KEYS from 'src/constants/localStorageKeys';
 
 const mutex = new Mutex();
 export const baseQueryWithAuth = fetchBaseQuery({
@@ -62,7 +63,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           api.dispatch(
             setCredentials({
               token: (refreshResult.data as {accessToken: string}).accessToken,
-              refreshToken: (refreshResult.data as {refreshToken: string}).refreshToken,
+              refreshToken: localStorage.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN),
             })
           );
           // retry the initial query
