@@ -1,6 +1,5 @@
 export {StyledAvatar} from './avatar';
 export {TextField} from './textField';
-export {StyledButton} from './button';
 export {PageHeader} from './pageHeader';
 export {EmptyContent} from './emptyContent';
 export {ProtectedRoute} from './protectedRoute';
@@ -8,3 +7,5 @@ export {PublicRoute} from './publicRoute';
 export {TodoItem} from './todoItem';
 export {PasswordInput} from './ui/password-input';
 export {Toaster} from './ui/toaster';
+export {ErrorBoundary} from './ErrorBoundary';
+export {TodoForm, type TodoFormData} from './todoForm';

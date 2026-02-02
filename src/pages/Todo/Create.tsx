@@ -1,7 +1,6 @@
 import {Box} from '@chakra-ui/react';
 import {useNavigate} from 'react-router-dom';
-import {PageHeader} from 'src/components';
-import {TodoForm, TodoFormData} from 'src/components/todoForm';
+import {PageHeader, TodoForm, TodoFormData} from 'src/components';
 import {useCreateTodoMutation} from 'src/store/api/todoApi';
 import {showSuccessToast} from 'src/utils/errorHandler';
 import {ROUTES_NESTED} from 'src/constants/routes';

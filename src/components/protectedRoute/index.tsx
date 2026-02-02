@@ -7,6 +7,10 @@ interface ProtectedRouteProps {
   redirectTo?: string;
 }
 
+/**
+ * @param restrictWhenAuthenticated - whether to restrict access for authenticated users (default: true)
+ * @param redirectTo - where to redirect authenticated users (default: /todos)
+ */
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   redirectTo = ROUTES_NESTED.PUBLIC.LOGIN,
