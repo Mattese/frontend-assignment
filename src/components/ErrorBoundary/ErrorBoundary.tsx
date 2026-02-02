@@ -1,6 +1,5 @@
 import {Component, ErrorInfo, ReactNode} from 'react';
-import {Box, Heading, Text, VStack} from '@chakra-ui/react';
-import {StyledButton} from '../button';
+import {Box, Button, Heading, Text, VStack} from '@chakra-ui/react';
 
 interface Props {
   children: ReactNode;
@@ -52,7 +51,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <Text color="text-tertiary">
               {this.state.error?.message || 'An unexpected error occurred'}
             </Text>
-            <StyledButton onClick={this.handleReset}>Go to Homepage</StyledButton>
+            <Button onClick={this.handleReset}>Go to Homepage</Button>
           </VStack>
         </Box>
       );

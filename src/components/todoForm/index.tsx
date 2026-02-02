@@ -17,7 +17,6 @@ interface TodoFormProps {
   isEdit?: boolean;
 }
 
-// Validation schema
 const schema: yup.ObjectSchema<TodoFormData> = yup.object({
   title: yup
     .string()
@@ -55,7 +54,6 @@ export const TodoForm: React.FC<TodoFormProps> = ({
   return (
     <form onSubmit={handleSubmit((data) => onSubmit(data))}>
       <VStack align="stretch" gap={6}>
-        {/* Task Name Field */}
         <Controller
           name="title"
           control={control}

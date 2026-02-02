@@ -9,8 +9,8 @@ interface PublicRouteProps {
 }
 
 /**
+ * @param redirectTo - where to redirect unauthenticated users (default: /todos)
  * @param restrictWhenAuthenticated - whether to restrict access for authenticated users (default: true)
- * @param redirectTo - where to redirect authenticated users (default: /todos)
  */
 export const PublicRoute: React.FC<PublicRouteProps> = ({
   children,
