@@ -7,8 +7,8 @@ export const isBlank = <T>(value: T | undefined | null): value is T =>
 export const isObject = (value: unknown): value is object =>
   isNotNullish(value) && typeof value === 'object';
 export const isBoolean = (value: unknown): value is boolean => typeof value === 'boolean';
-// eslint-disable-next-line @typescript-eslint/ban-types
-export const isFunction = (value: unknown): value is Function => typeof value === 'function';
+export const isFunction = (value: unknown): value is (...args: any[]) => any =>
+  typeof value === 'function';
 export const isString = (value: unknown): value is string => typeof value === 'string';
 export const isNumber = (value: unknown): value is number => typeof value === 'number';
 export const isEmptyString = (value: unknown): value is string => value === '';

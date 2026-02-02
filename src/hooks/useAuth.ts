@@ -1,6 +1,6 @@
-import {useAppDispatch, useAppSelector} from '@/store/hooks';
-import {logoutUser, setCredentials} from '@/store/authSlice';
-import {useLoginMutation, useRegisterMutation, useGetUserQuery} from '@/store/api/authApi';
+import {useLoginMutation, useRegisterMutation, useGetUserQuery} from 'src/store/api/authApi';
+import {setCredentials, logoutUser} from 'src/store/authSlice';
+import {useAppDispatch, useAppSelector} from 'src/store/hooks';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();

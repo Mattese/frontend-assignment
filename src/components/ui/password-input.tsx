@@ -1,7 +1,8 @@
-'use client';
-
-import type {ButtonProps, GroupProps, InputProps, StackProps} from '@chakra-ui/react';
 import {
+  type ButtonProps,
+  type GroupProps,
+  type InputProps,
+  type StackProps,
   Box,
   HStack,
   IconButton,

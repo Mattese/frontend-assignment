@@ -1,14 +1,13 @@
-import {PageHeader, TextField} from '@/components';
-import {useAuth} from '@/hooks/useAuth';
-import * as yup from 'yup';
-import {Box, Button, HStack, Textarea, VStack} from '@chakra-ui/react';
-import * as React from 'react';
-import {Controller, useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
-import {ROUTES_NESTED} from '@/utils/routes';
+import {Box, VStack, Textarea, HStack, Button} from '@chakra-ui/react';
+import {useForm, Controller} from 'react-hook-form';
 import {useNavigate} from 'react-router-dom';
-import {showSuccessToast} from '@/utils/errorHandler';
-import {useCreateTodoMutation} from '@/store/api/todoApi';
+import {PageHeader, TextField} from 'src/components';
+import {useCreateTodoMutation} from 'src/store/api/todoApi';
+import {showSuccessToast} from 'src/utils/errorHandler';
+import {ROUTES_NESTED} from 'src/utils/routes';
+
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
 
 type FormData = {
   title: string;
@@ -31,7 +30,7 @@ export const Create: React.FC = () => {
     control,
     handleSubmit,
     reset,
-    formState: {errors, isSubmitting, isDirty},
+    formState: {isSubmitting, isDirty},
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     defaultValues: {
@@ -67,14 +66,7 @@ export const Create: React.FC = () => {
             <Controller
               name="title"
               control={control}
-              render={({field}) => (
-                <TextField
-                  label="Task name"
-                  placeholder="Enter task name"
-                  error={errors.title?.message}
-                  {...field}
-                />
-              )}
+              render={({field}) => <TextField label="Task name" {...field} />}
             />
 
             <Controller

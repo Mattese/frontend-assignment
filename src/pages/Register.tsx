@@ -1,12 +1,11 @@
-import {TextField} from '@/components';
-import {StyledButton} from '@/components/button';
-import {useAuth} from '@/hooks/useAuth';
 import {Heading} from '@chakra-ui/react';
+import {TextField, StyledButton} from 'src/components';
+import {useAuth} from 'src/hooks/useAuth';
 
 const label = 'Register';
 
 export const Register: React.FC = () => {
-  const {register, loading} = useAuth();
+  const {register} = useAuth();
 
   const handleRegister = async () => {
     // if (username && password) {
@@ -28,7 +27,7 @@ export const Register: React.FC = () => {
       </Heading>
 
       <TextField label="Username" />
-      <TextField label="Password" type="password" />
+      <TextField label="Password" />
 
       {/* TODO: implement onClick */}
       <StyledButton width={{base: '100%', sm: 'auto'}} onClick={handleRegister}>

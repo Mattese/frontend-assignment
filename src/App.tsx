@@ -6,7 +6,7 @@ import {Create, Login, TodoList, Welcome} from './pages';
 import {ProtectedRoute, PublicRoute} from './components';
 import {Register} from './pages/Register';
 import {UnauthenticatedLayout} from './layouts/UnauthenticatedLayout';
-import {ROUTES_NESTED} from '@/utils/routes';
+import {ROUTES_NESTED} from './utils/routes';
 
 function App() {
   const {i18n, t} = useTranslation();
