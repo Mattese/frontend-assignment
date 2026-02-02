@@ -5,7 +5,7 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:3000'}),
   tagTypes: ['Todo', 'User'],
-  endpoints: (builder) => ({
+  endpoints: () => ({
     // Example endpoint - you can customize this based on your API
     // getTodos: builder.query<Todo[], void>({
     //   query: () => '/todos',
