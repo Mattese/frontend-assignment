@@ -8,7 +8,7 @@ export function Welcome() {
 
   return (
     <Center height="100vh" width="100wv" padding="10">
-      <VStack gap="10px" width="100%" maxWidth="600px">
+      <VStack gap="10px">
         <Text fontSize="2xl" color="blue.900">
           {t('welcome.message')}
         </Text>

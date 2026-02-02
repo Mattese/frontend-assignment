@@ -15,7 +15,7 @@ export const getAccessTokenDataFromRequest = (req: Request, res: Response): Toke
     const isValid = isNotNilOrEmpty(data);
 
     return {isValid, data};
-  } catch {
+  } catch (error) {
     throw res.status(401).json({error: 'Unauthorized'});
   }
 };

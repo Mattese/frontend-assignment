@@ -1,4 +1,4 @@
-import swaggerAutogen from 'swagger-autogen';
+const swaggerAutogen = require('swagger-autogen')();
 const definition = {
   info: {
     title: 'Todo API',
@@ -10,4 +10,4 @@ const definition = {
 const outputFile = './swagger.json';
 const endpointsFiles = ['./routes/todoRoutes.ts', './routes/userRoutes.ts'];
 
-swaggerAutogen()(outputFile, endpointsFiles, definition);
+swaggerAutogen(outputFile, endpointsFiles, definition);
