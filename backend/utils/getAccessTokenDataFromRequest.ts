@@ -9,7 +9,7 @@ type TokenData = {isValid: boolean; data: TokenPayload};
 export const getAccessTokenDataFromRequest = (req: Request, res: Response): TokenData => {
   try {
     const token = req.headers.authorization?.split(' ')[1] ?? '';
-    const payload = jwt.verify(token, process.env.ACCESS_KEY);
+    const payload = jwt.verify(token, process.env.ACCESS_KEY!);
 
     const data = tokenDataSchema.cast(payload);
     const isValid = isNotNilOrEmpty(data);
