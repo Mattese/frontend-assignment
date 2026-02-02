@@ -44,7 +44,7 @@ export interface PasswordInputProps extends InputProps, PasswordVisibilityProps 
 }
 
 export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
-  function PasswordInput(props, ref) {
+  (props, ref) => {
     const {
       rootProps,
       defaultVisible,
@@ -92,8 +92,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
 );
 
 const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  function VisibilityTrigger(props, ref) {
-    return (
+  (props, ref) => (
       <IconButton
         tabIndex={-1}
         ref={ref}
@@ -109,8 +108,7 @@ const VisibilityTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-label="Toggle password visibility"
         {...props}
       />
-    );
-  }
+    )
 );
 
 interface PasswordStrengthMeterProps extends StackProps {
@@ -119,7 +117,7 @@ interface PasswordStrengthMeterProps extends StackProps {
 }
 
 export const PasswordStrengthMeter = React.forwardRef<HTMLDivElement, PasswordStrengthMeterProps>(
-  function PasswordStrengthMeter(props, ref) {
+  (props, ref) => {
     const {max = 4, value, ...rest} = props;
 
     const percent = (value / max) * 100;
