@@ -40,7 +40,14 @@ export const TodoItem: React.FC<TodoItemProps> = React.memo(
           <Box>
             <Checkmark variant="solid" size="lg" checked={completed} />
           </Box>
-          <Box maxWidth="100%" paddingRight="24px" overflow="hidden">
+          <Box
+            cursor="pointer"
+            onClick={handleEdit}
+            width="100%"
+            maxWidth="100%"
+            paddingRight="24px"
+            overflow="hidden"
+          >
             <Heading
               wordWrap="break-word"
               textOverflow="clip"

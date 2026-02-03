@@ -1,7 +1,7 @@
-import {Button, Heading, VStack} from '@chakra-ui/react';
+import {Button, Heading, VStack, Text} from '@chakra-ui/react';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {useForm} from 'react-hook-form';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {TextField} from 'src/components';
 import {PasswordInput} from 'src/components/ui/password-input';
 import {useAuth} from 'src/hooks/useAuth';
@@ -74,6 +74,9 @@ export const LoginPage: React.FC = () => {
           </Button>
         </VStack>
       </form>
+      <Text>
+        <Link to={ROUTES_NESTED.PUBLIC.REGISTER}>Sign upif you don't have an account.</Link>
+      </Text>
     </VStack>
   );
 };
